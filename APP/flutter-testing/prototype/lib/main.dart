@@ -7,7 +7,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(new MaterialApp(
-    title: "Renter",
+    debugShowCheckedModeBanner: false,
+    title: "Inventory",
     home: new LoginScreen(),
     )
   );
@@ -249,9 +250,9 @@ class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin 
           padding: EdgeInsets.zero,
           children: <Widget>[
             new DrawerHeader(
-              child: new Image.asset("assets/inventory.png", height: 5.0, width: 5.0,),
+              child: new Image.asset("assets/chest.png", height: 5.0, width: 5.0,),
               decoration: new BoxDecoration(
-                color: Colors.blue,
+                color: Colors.white,
               ),
             ),
             new ListTile(
@@ -348,9 +349,31 @@ class HomePageState extends State<HomePage> with SingleTickerProviderStateMixin 
               child: tabbedView(),
             ),
           ),
-//          new Container(
-//            child: tabbedContentView(),
-//          )
+          new Container(
+            child: new SizedBox(
+              height: 100.0,
+              child: new TabBarView(
+                controller: _controller,
+                children: <Widget>[
+                new Card(
+                  child: new ListTile(
+                    leading: const Icon(Icons.home),
+                    title: new TextField(
+                      decoration: const InputDecoration(hintText: 'Search for address...'),
+                    ),
+                  ),
+                ),
+                new Card(
+                  child: new ListTile(
+                    leading: const Icon(Icons.location_on),
+                    title: new Text('Latitude: 48.09342\nLongitude: 11.23403'),
+                    trailing: new IconButton(icon: const Icon(Icons.my_location), onPressed: () {}),
+                  ),
+                ),
+                ],
+              ),
+            ),
+          )
         ],
 
       ),
@@ -430,7 +453,7 @@ class BarcodeReaderState extends State<BarcodeReader> {
   Widget build(BuildContext context){
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text("Renter"),
+        title: new Text("Inventory"),
       ),
       body: new ListView.builder(
         itemBuilder: (BuildContext context, int index) => new PaymentEntryItem(data[index]),
